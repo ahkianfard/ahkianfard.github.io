@@ -1,0 +1,22 @@
+---
+import Navbar from "./MainSection/Navbar.astro";
+import PostBlock from "./MainSection/PostBlock.astro";
+import Alert from "./Alert.astro";
+import { getCollection } from "astro:content";
+const allPosts = await getCollection("posts");
+---
+
+<div class="w-full h-full py-4 max-lg:pb-0 max-lg:order-1 lg:w-1/2">
+    <Navbar />
+    {
+        allPosts
+            .reverse()
+            .map((post) =>
+                post.data.published ? (
+                    <PostBlock post={post} />
+                ) : (
+                    <Alert alert="مطلبی پیدا نشد ..." />
+                ),
+            )
+    }
+</div>

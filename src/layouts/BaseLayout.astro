@@ -1,0 +1,25 @@
+---
+import "../styles/output.css";
+const { pageTitle } = Astro.props;
+---
+
+<!doctype html>
+<html dir="rtl">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{pageTitle}</title>
+    </head>
+
+    <body class="bg-gray-100 dark:bg-darkenblue">
+        <div
+            class="container flex flex-col mx-auto lg:flex-row font-iransans justify-evenly"
+        >
+            <slot />
+        </div>
+        <script>
+            import "../scripts/flowbite.min.js";
+            import "../scripts/app.js";
+        </script>
+    </body>
+</html>

@@ -1,0 +1,120 @@
+---
+const { post } = Astro.props;
+const mdContent = marked.parse(post.body);
+const tags = [...new Set(post.data.tags.flat())];
+---
+
+<div
+    class="flex flex-col p-4 mx-4 mb-4 bg-white border shadow dark:bg-gray-800 dark:border-gray-700 dark:text-white lg:mx-0 rounded-xl"
+>
+    <div class="grid grid-cols-12">
+        <div
+            class="flex flex-row items-center col-start-1 col-end-12 align-middle"
+        >
+            <div class="flex flex-row items-center justify-center align-middle">
+                <img class="w-10 h-auto rounded-full" src="./img/profile.jpg" />
+                <div
+                    class="flex flex-col items-start justify-start align-baseline"
+                >
+                    <div class="flex flex-row mb-1">
+                        <h5
+                            class="mr-2 text-base font-extrabold text-gray-900 dark:text-white"
+                        >
+                            امیرحسین کیان فرد
+                        </h5>
+                        <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            class="mr-1"
+                            xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                        >
+                            <rect
+                                width="24"
+                                height="24"
+                                stroke="none"
+                                fill="#000000"
+                                opacity="0"></rect>
+                            <g transform="matrix(0.42 0 0 0.42 12 12)">
+                                <g style="">
+                                    <g transform="matrix(1 0 0 1 0 0)">
+                                        <polygon
+                                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(66,165,245); fill-rule: nonzero; opacity: 1;"
+                                            points="5.62,-21 9.05,-15.69 15.37,-15.38 15.69,-9.06 21,-5.63 18.12,0 21,5.62 15.69,9.05 15.38,15.37 9.06,15.69 5.63,21 0,18.12 -5.62,21 -9.05,15.69 -15.37,15.38 -15.69,9.06 -21,5.63 -18.12,0 -21,-5.62 -15.69,-9.05 -15.38,-15.37 -9.06,-15.69 -5.63,-21 0,-18.12 "
+                                        ></polygon>
+                                    </g>
+                                    <g transform="matrix(1 0 0 1 -0.01 0.51)">
+                                        <polygon
+                                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                                            points="-2.6,6.74 -9.09,0.25 -6.97,-1.87 -2.56,2.53 7,-6.74 9.09,-4.59 "
+                                        ></polygon>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                        <p
+                            class="my-auto text-xs font-normal text-center text-gray-400 font-iransans dark:text-gray-400"
+                            dir="ltr"
+                        >
+                            @Kianodd3
+                        </p>
+                    </div>
+                    <p
+                        class="my-auto mr-2 text-xs font-normal text-center text-gray-400 font-iransans dark:text-gray-400"
+                    >
+                        انتشار در {post.data.PTime} - {post.data.PDate}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div
+            class="flex flex-row items-center justify-end col-start-12 col-end-12 align-middle"
+        >
+            {post.data.pinned ? "📌" : ""}
+        </div>
+    </div>
+    <div class="py-4 blog">
+        <p set:html={mdContent}>
+            <span></span>
+        </p>
+        <img
+            src="https://picsum.photos/300"
+            class="w-auto mx-auto mt-4 border-2 border-gray-300 min-w-52 sm:min-w-64 rounded-2xl dark:border-gray-600"
+        />
+    </div>
+    <hr class="p-2" />
+    <div class="flex flex-wrap gap-2">
+        <p
+            class="ml-1 text-base text-right text-black font-iransans dark:text-gray-400"
+        >
+            تگ ها :
+        </p>
+        {
+            tags.map((tag) => (
+                <span class="bg-blue-100 text-blue-800 text-sm font-medium  px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                    #{tag}
+                </span>
+            ))
+        }
+    </div>
+</div>
+
+<style is:global>
+    .blog > p > img {
+        border-style: solid;
+        border-color: #e5e7eb;
+        display: block;
+        vertical-align: middle;
+        max-width: 100%;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        width: auto;
+        min-width: 13rem;
+        border-radius: 1rem;
+        border-width: 1px;
+    }
+</style>
